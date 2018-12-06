@@ -18,10 +18,9 @@ namespace ARTchive.DBManagers
         public DBManager()
         {
             provider = "System.Data.SqlClient";
-
+            
             //path to connect to the SqlServer database
-            //connectionString = "Data Source=127.0.0.1;Initial Catalog=ARTchive;User ID=sa;Password=S0mething!23";
-            connectionString = "Data Source=artchive.database.windows.net;Initial Catalog=ARTchive;User ID=capstone;Password=S0mething!23"; 
+            connectionString = "Data Source=artchive.database.windows.net;Initial Catalog=ARTchive;User ID=capstone;Password=S0mething!23";
 
         }
     }

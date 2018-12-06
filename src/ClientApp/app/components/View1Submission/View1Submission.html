@@ -1,6 +1,6 @@
 ﻿<template>
     <h1 style="text-align:center">Annual Student Show Application</h1>
-    <div class="container" style="margin-top:30px;margin-right:300px;">
+    <div class="container" style="margin-top:30px;padding-right:100px;">
         <form with.bind="submissionData">
             <!--First name -->
             <div class="form-group row">
@@ -8,8 +8,7 @@
                     <label for="fName">First Name</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="text" class="form-control" id="fName" value.bind="user.firstName"
-                           placeholder="Enter First Name" />
+                    <p>${submission.user.firstName}</p>
                 </div>
             </div>
 
@@ -19,8 +18,7 @@
                     <label for="lName">Last Name</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="text" class="form-control" id="fName" value.bind="user.lastName"
-                           placeholder="Enter Last Name" />
+                    <p>${submission.user.lastName}</p>
                 </div>
             </div>
 
@@ -30,8 +28,7 @@
                     <label for="email">Email Address</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="email" class="form-control" id="email" value.bind="user.email"
-                           aria-describedby="emailHelp" placeholder="Enter Email" />
+                    <p>${submission.user.email}</p>
                 </div>
             </div>
 
@@ -41,7 +38,7 @@
                     <label for="phone">Phone Number</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="phone" class="form-control" id="phone" value.bind="user.phoneNumber" placeholder="Enter Phone Number" />
+                    <p>${submission.user.phoneNumber}</p>
                 </div>
             </div>
 
@@ -51,7 +48,7 @@
                     <label for="address">Address</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="address" class="form-control" id="address" value.bind="user.address" placeholder="Enter Address" />
+                    <p>${submission.user.address}</p>
                 </div>
             </div>
             <br><hr><br>
@@ -64,7 +61,7 @@
                     <label for="artworkTitle">Title</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="text" class="form-control" id="artworkTitle" value.bind="artwork.title" placeholder="Enter Title">
+                    <p>${submission.artwork.title}</p>
                 </div>
             </div>
 
@@ -74,7 +71,7 @@
                     <label for="artworkInstructor">Instructor</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="text" class="form-control" id="artworkInstructor" value.bind="artwork.instructor" placeholder="Enter Instructor's Name">
+                    <p>${submission.artwork.instructor}</p>
                 </div>
             </div>
 
@@ -83,15 +80,8 @@
                 <div class="col-sm-2 col-md-3">
                     <label for="semester">Semester Completed</label>
                 </div>
-                <div class="col-sm-5 col-md-3">
-                    <select class="form-control" id="artworkSemester" value.bind="$parent.semesterSeason">
-                        <option repeat.for="season of semesterSeasons" value.bind="season">${season}</option>
-                    </select>
-                </div>
-                <div class="col-sm-5 col-md-3 col-auto mr-auto">
-                    <select class="form-control" id=artworkYear value.bind="$parent.semesterYear">
-                        <option repeat.for="year of semesterYears" value.bind="year">${year}</option>
-                    </select>
+                <div class="col-sm-10 col-md-9">
+                    <p>${submission.artwork.semester}</p>
                 </div>
             </div>
 
@@ -101,8 +91,7 @@
                     <label for="artworkClass">Class</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="text" class="form-control" id="workClass" value.bind="artwork.course"
-                           placeholder="Enter Class Name" />
+                    <p>${submission.artwork.course}</p>
                 </div>
             </div>
 
@@ -112,9 +101,7 @@
                     <label for="email">Medium</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="email" class="form-control" id="artworkMedium" value.bind="artwork.medium"
-                           placeholder="Enter Medium" />
-                    <small class="form-text text-muted">Note: If the artwork is mixed-media, please separate the different mediums using commas, ie. graphite, photography</small>
+                    <p>${submission.artwork.medium}</p>
                 </div>
             </div>
 
@@ -124,9 +111,7 @@
                     <label for="artworkPhoto">Photo of Artwork</label>
                 </div>
                 <div class="col-sm-10 col-md-9">
-                    <input type="file" class="form-control-file" id="artworkPhoto" files.bind="artwork.photo" 
-                           aria-describedby="fileHelp" accept="image/*">
-                    <small id="fileHelp" class="form-text text-muted">Accepted image formats are .jpeg, .png, etc.</small>
+                    <p>${submission.artwork.photo}</p>
                 </div>
             </div>
             <br><hr><br>
@@ -134,12 +119,35 @@
             <!--Additional comments -->
             <div class="form-group">
                 <label for="comments">Additional Comments</label>
-                <textarea class="form-control" id="comments" rows="4" value.bind="comments"></textarea>
+                <p>${submission.submission.submissionComments}</p>
+            </div>
+            <br />
+            <hr />
+            <br />
+            <!--Admin Accept/reject form-->
+            <div style="padding:15px;">
+            <div class="form-group row" >
+                <div class="col-sm-6">
+                    <div class="radio">
+                        <label><input type="radio" name="rdoDecisionGroup" model.bind="true" checked.bind="selectedRadioBtn" checked>Accept</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="radio">
+                        <label><input type="radio" name="rdoDecisionGroup" model.bind="false" checked.bind="selectedRadioBtn">Reject</label>
+                    </div>
+                </div>
             </div>
 
+            <div class="form-group">
+                <label for="comments">Review Comments</label>
+                <textarea class="form-control" id="comments" rows="4" value.bind="submission.adminComments"></textarea>
+            </div>
+            </div>
+            <br />
 
             <div class="text-center">
-                <button type="submit" click.delegate="submitApplication()" class="btn btn-outline-secondary">Submit</button>
+                <button type="submit" click.delegate="submitDecision()" class="btn btn-outline-secondary">Save</button>
             </div>
         </form>
         <br>

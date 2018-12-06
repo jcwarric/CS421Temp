@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Submission controller handles backend processing for:
+ *  SubmitRegistration
+ *  ViewAllSubmissions
+ *  View1Submission
+ * 
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,24 +40,37 @@ namespace ARTchive.Controllers
             Artwork artwork = submission.getArtwork();
             ArtworkDBManager artworkDBManager = new ArtworkDBManager();
             int artID = artworkDBManager.Insert(artwork, userID, exhibitID);
-            
+
 
             //save submission
             SubmissionDBManager submissionDbMgr = new SubmissionDBManager();
             submissionDbMgr.Insert(submission, userID, exhibitID, artID);
-            
+
         }
 
         //get request to get the row data from the database for the AdminViewAllSubmissions page
         [HttpGet("[action]")]
-        public string[,] GetAllSubmissions()
+        public string GetAllSubmissions()
         {
             int ExhibitID = 12;
             //get array of table fields from the database
             SubmissionDBManager submissionDBManager = new SubmissionDBManager();
-            string[,] submissions = submissionDBManager.getSubmissionsByExhibit(ExhibitID);
-            return submissions;
+            List<Submission> submissions = submissionDBManager.getSubmissionsByExhibit(ExhibitID);
+
+            Console.WriteLine("=====Submissions JSON =========");
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(submissions));
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(submissions);
         }
-        
+
+        [HttpPost("[action]")]
+        public void SaveSubmissionDecision([FromBody] Submission submission) // data from user submission form
+        {
+            Console.WriteLine("=== submission data: ");
+            Console.WriteLine(submission);
+            SubmissionDBManager submissionDBManager = new SubmissionDBManager();
+            submissionDBManager.SaveSubmissionDecision(submission);
+
+        }
     }
 }

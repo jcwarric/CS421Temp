@@ -1,0 +1,195 @@
+﻿<template>
+    <h1 style="text-align:center">Update Exhibit</h1>
+    <div class="container">
+        <form>
+            <!--Title -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="title">Title</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="title" value.bind="exhibit.title"
+                           placeholder="Enter Exhibit Title" />
+                </div>
+            </div>
+
+            <!--Description-->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="description">Description</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <textarea class="form-control" id="description" value.bind="exhibit.description"
+                              rows="4"></textarea>
+                </div>
+            </div>
+
+            
+
+            <!-- Featured image -->
+            <!--<div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="featuredImg">Featured Image</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="file" class="form-control-file" id="featuredImg" aria-describedby="fileHelp"
+                           value.bind="exhibit.featuredImg">
+                    <small id="fileHelp" class="form-text text-muted">Accepted image formats are .jpeg, .png, etc.</small>
+                </div>
+            </div>-->
+
+            <!-- Thumbnail image -->
+            <!--<div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="thumbnailImg">Thumbnail Image</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="file" class="form-control-file" id="thumbnailImg" aria-describedby="fileHelp"
+                           value.bind="exhibit.thumbnailImg">
+                    <small id="fileHelp" class="form-text text-muted">Accepted image formats are .jpeg, .png, etc.</small>
+                </div>
+            </div>-->
+
+
+            <!-- Exhibit start date, condider replacing with date-pickers -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="ExhibitStartDate">Exhibit Start Date</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="exhibitStartDate"
+                           placeholder="mm/dd/yyyy" value.bind="exhibit.exhibitStartDate" />
+                </div>
+            </div>
+
+            <!-- Exhibit start time -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="exhibitStartTime">Exhibit Start Time</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="exhibitStartTime"
+                           placeholder="hh:mm" value.bind="exhibit.exhibitStartTime" />
+                </div>
+            </div>
+
+            <!-- Exhibit end date -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="exhibitEndDate">Exhibit End Date</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="exhibitEndDate"
+                           placeholder="mm/dd/yyyy" value.bind="exhibit.exhibitEndDate" />
+                </div>
+            </div>
+
+            <!-- Exhibit end time -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="exhibitEndTime">Exhibit End Time</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="exhibitEndTime"
+                           placeholder="hh:mm" value.bind="exhibit.exhibitEndTime" />
+                </div>
+            </div>
+
+            <br><br><h4 style="text-align:center;color:grey;">Registration Details</h4>
+
+            <!-- Registration start date -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="registrationStartDate">Registration Start Date</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="registrationStartDate"
+                           placeholder="mm/dd/yyyy" value.bind="exhibit.registrationStartDate" />
+                </div>
+            </div>
+
+            <!-- Registration start time -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="registrationStartTime">Registration Start Time</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="registrationStartTime"
+                           placeholder="hh:mm" value.bind="exhibit.registrationStartTime" />
+                </div>
+            </div>
+
+            <!-- Registration end date -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="registrationEndDate">Registration End Date</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="registrationEndDate"
+                           placeholder="mm/dd/yyyy" value.bind="exhibit.registrationEndDate" />
+                </div>
+            </div>
+
+            <!-- Registration end time -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="registrationEndTime">Registration End Time</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="registrationEndTime"
+                           placeholder="hh:mm" value.bind="exhibit.registrationEndTime" />
+                </div>
+            </div>
+
+            <br><br><h4 style="text-align:center;color:grey;">Reception Details</h4>
+            <!-- Reception date -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="receptionDate">Reception Date</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="receptionDate"
+                           placeholder="mm/dd/yyyy" value.bind="exhibit.receptionDate" />
+                </div>
+            </div>
+
+            <!-- Reception start time -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="receptionStartTime">Reception Start Time</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="receptionStartTime"
+                           placeholder="hh:mm" value.bind="exhibit.receptionStartTime" />
+                </div>
+            </div>
+
+            <!-- Reception end time -->
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3">
+                    <label for="receptionEndTime">Reception End Time</label>
+                </div>
+                <div class="col-sm-10 col-md-9">
+                    <input type="text" class="form-control" id="receptionEndTime"
+                           placeholder="hh:mm" value.bind="exhibit.receptionEndTime" />
+                </div>
+            </div>
+
+            <br><br>
+            <!--Additional comments -->
+            <div class="form-group">
+                <label for="additionalComments">Additional Comments For Applicants</label>
+                <textarea class="form-control" id="additionalComments" rows="4"
+                          value.bind="exhibit.additionalComments"></textarea>
+            </div>
+
+
+            <div class="text-center">
+                <button type="submit" click.delegate="submitExhibitForUpdate()" class="btn btn-outline-secondary">Submit</button>
+            </div>
+        </form>
+        <br>
+    </div>
+    <br>
+    <br>
+</template>

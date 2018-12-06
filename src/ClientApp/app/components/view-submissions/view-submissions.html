@@ -19,13 +19,15 @@
             <tbody>
                 <tr repeat.for="item of submissionsArr">
                     <td>${$index + 1}</td>
-                    <td>${item[0]}</td>
-                    <td>${item[1]}</td>
-                    <td>${item[2]}</td>
-                    <td>${item[3]}</td>
-                   
-                    <td><a>View</a></td>
-                    <td>${item[4]}</td>
+                    <td>${item.user.firstName}</td>
+                    <td>${item.user.lastName}</td>
+                    <td><a href="mailto:${item.user.email}?subject=SVSU%20University%20Art%20Gallery&body=Dear ${item.user.firstName}, %0D%0A  %0D%0A${item.adminComments}%0D%0A %0D%0A Sincerely, %0D%0A %0D%0ATisch Lewis">
+                        ${item.user.email}</a></td>
+                    <td>${item.artwork.title}</td>
+                    <td><button class="btn btn-secondary-outline"
+                        click.delegate='RedirectToSingleSubmission(item)'>View</button></td>
+                    <!--<a route-href="View1Submission; params.bind:{submission:item}">View</a>-->
+                    <td>${item.status}</td>
                 </tr>
             </tbody>
         </table>

@@ -16,4 +16,14 @@ export class User {
         this.address = "";
         this.biography = "biography";
     }
+
+    setValues(firstName: string, lastName: string, email: string, phoneNumber: string,
+        address: string, biography: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.biography = biography;
+    }
 }

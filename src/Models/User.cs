@@ -9,13 +9,13 @@ namespace ARTchive.Models
     {
         //private member variables are binded to html elements with
         //the same ids
-        private int userID;
-        private string firstName;
-        private string lastName;
-        private string email;
-        private string phoneNumber;
-        private string address;
-        private string biography;
+        public int userID;
+        public string firstName;
+        public string lastName;
+        public string email;
+        public string phoneNumber;
+        public string address;
+        public string biography;
         //TODO: add photo for profile
 
         public User(int userID,

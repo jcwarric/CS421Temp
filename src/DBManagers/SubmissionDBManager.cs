@@ -21,41 +21,38 @@ namespace ARTchive.DBManagers
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand("INSERT INTO Submission( UserID, ExhibitID, ArtworkID, " +
-                    "SubmissionComments, Status, AdminComments)" +
+                    "SubmissionComments, Status, AdminComments, NotificationStatus)" +
                     "VALUES( @userID, @exhibitID, @artworkID, @submissionComments, " +
-                    "@status, @adminComments)", connection);
+                    "@status, @adminComments, @notificationStatus)", connection);
          
                 cmd.Parameters.AddWithValue("@userID", userID);
                 cmd.Parameters.AddWithValue("@exhibitID", exhibitID);
                 cmd.Parameters.AddWithValue("@artworkID", artworkID);
-                cmd.Parameters.AddWithValue("@submissionComments", submission.getComments());
+                cmd.Parameters.AddWithValue("@submissionComments", submission.getSubmissionComments());
                 cmd.Parameters.AddWithValue("@status", submission.getStatus());
                 cmd.Parameters.AddWithValue("@adminComments", submission.getAdminComments());
+                cmd.Parameters.AddWithValue("@notificationStatus", submission.getNotificationStatus());
                 cmd.ExecuteNonQuery();
             }
         }
 
         //right now just assumes that the application supports 1 exhibit
-        public string[,] getSubmissionsByExhibit(int ExhibitID)
+        public List<Submission> getSubmissionsByExhibit(int ExhibitID)
         {
-            //2d array to hold the data for the AdminViewAllSubmissions GUI table.
-            //each row contains the FirstName, LastName, Email,Title of Artwork, and Status of the submission
-            string[,] submissions;
+         
+            List<Submission> submissions = new List<Submission>();
+
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                //get the number of submissions for the exhibit
-                SqlCommand cmdGetNumSubmissions = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Submission];", connection);
-                int numSubmissions = (int) cmdGetNumSubmissions.ExecuteScalar();
-                int numFields = 5; 
-                submissions = new string[numSubmissions, numFields];
-                int submissionIndex = 0;
-
                 //sql command to get the user's first name, last name, email, title of the artwork, and status
                 //for all submissions.
-                SqlCommand cmd = new SqlCommand("Select [User].FirstName, [User].LastName, [User].Email, [Artwork].Title, [Submission].[Status] " +
+                SqlCommand cmd = new SqlCommand(
+                "SELECT [User].UserID, [User].FirstName, [User].LastName, [User].Email, [User].PhoneNumber, [User].Address, " +
+                    "[Artwork].ArtworkID, [Artwork].Title, [Artwork].Instructor, [Artwork].Semester, [Artwork].Course, [Artwork].Medium, [Artwork].StudentPhotoURL, " +
+                    "[Submission].SubmissionID, [Submission].ExhibitID, [Submission].SubmissionComments, [Submission].AdminComments, [Submission].[Status], [Submission].[NotificationStatus] " +
                 "FROM((Submission " +
                 "INNER JOIN[User] ON Submission.UserID = [User].UserID)" +
                 "INNER JOIN[Artwork] ON Submission.ArtworkID = [Artwork].ArtworkID); ", connection);
@@ -65,21 +62,47 @@ namespace ARTchive.DBManagers
                 //loop through the reader, storing each row's information in a row in the submissions array
                 while (reader.Read())
                 {
-                    //save the submission's user's first name
-                    submissions[submissionIndex, 0] = (string)reader["FirstName"];
+                    //create a user object from the database info
+                    User user = new User(
+                        (int)reader["UserID"],
+                        (string)reader["FirstName"],
+                        (string)reader["LastName"],
+                        (string)reader["Email"],
+                        (string)reader["PhoneNumber"],
+                        (string)reader["Address"]);
 
-                    //save the submission's user's last name
-                    submissions[submissionIndex, 1] = (string)reader["LastName"];
+                    //create an artwork object from the database info
+                    Artwork artwork = new Artwork(
+                        (int)reader["ArtworkID"],
+                        (string)reader["Title"],
+                        (string)reader["Instructor"],
+                        (string)reader["Semester"],
+                        (string)reader["Course"],
+                        (string)reader["Medium"],
+                        (string)reader["StudentPhotoURL"]);
 
-                    //save the submission's user's email
-                    submissions[submissionIndex, 2] = (string)reader["Email"];
+                    //create a submission object from database info
+                    Submission submissionTmp = new Submission(
+                        (int)reader["SubmissionID"],
+                        user,
+                        ExhibitID,
+                        artwork,
+                        (string)reader["SubmissionComments"],
+                        (string)reader["AdminComments"],
+                        (string)reader["Status"],
+                        (bool)reader["NotificationStatus"]);
 
-                    //save the submission's Artwork's title
-                    submissions[submissionIndex, 3] = (string)reader["Title"];
+                    //add submission to submissions list
+                    submissions.Add(submissionTmp);
 
-                    //save the submission's status
-                    submissions[submissionIndex, 4] = (string)reader["Status"];
-                    submissionIndex++;
+                    Console.WriteLine();
+                    Console.WriteLine("=== Submission ===");
+                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(submissionTmp));
+                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(artwork));
+                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                    Console.WriteLine();
+
+
                 }
                 connection.Close();
 
@@ -87,8 +110,28 @@ namespace ARTchive.DBManagers
             return submissions;
         }
 
-        
 
+        //save the submission decision (whether the admin accepted or rejected the submission)
+        //to the databse by updating the submission in the Submission table.
+        public void SaveSubmissionDecision(Submission submission)
+        {
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE [Submission] " +
+                    " SET[Status] = @status, [AdminComments] = @adminComments, [NotificationStatus] = @notificationStatus " +
+                    " WHERE[SubmissionID] = @submissionID; ", connection);
+
+                cmd.Parameters.AddWithValue("@submissionID" , submission.getSubmissionID());
+                cmd.Parameters.AddWithValue("@status", submission.getStatus());
+                cmd.Parameters.AddWithValue("@adminComments", submission.getAdminComments());
+                cmd.Parameters.AddWithValue("@notificationStatus", submission.getNotificationStatus());
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            
+        }
 
     }
 }

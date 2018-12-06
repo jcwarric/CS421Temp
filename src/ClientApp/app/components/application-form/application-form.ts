@@ -19,25 +19,31 @@ export class ApplicationForm {
     semesterSeason: string;
     semesterYear: string;
 
-    constructor(private fetchdata: FetchData) {
+    //use router to navigate to view-submissions page after user
+    //clicks submit (we'll want to change this later to display a
+    //"submission successful message to the user)
+    router: Router;
+
+    constructor(private fetchdata: FetchData, router:Router) {
         this.submissionData = new Submission();
 
         this.semesterSeasons = ["Fall", "Winter", "Spring/Summer"];
-        this.semesterYears = ["2016", "2017", "2018", "2019"];
+        this.semesterYears = ["2016","2017", "2018", "2019"];
 
         this.semesterSeason = "";
         this.semesterYear = "";
+        this.router = router;
     }
 
     //fn called when user hits "submit"
     submitApplication() {
-
-        this.submissionData.artwork.semester = this.semesterSeason + " " + this.semesterYear;
         console.log(this.submissionData);
+        this.submissionData.artwork.semester = this.semesterSeason + " " + this.semesterYear;
 
-        //post the submission so that it can be reached in the C# class?
+        //post the submission so that it can be reached in the C# class
         this.fetchdata.postSubmission(this.submissionData).then((response: any) => {
-            console.log(response);
+            //console.log(response);
+            this.router.navigateToRoute('view-submissions');
         });
         
     }

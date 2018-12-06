@@ -7,13 +7,14 @@ namespace ARTchive.Models
 {
     public class Artwork
     {
-        private int ArtworkID;
-        private string Title;
-        private string Instructor;
-        private string Semester;
-        private string Course;
-        private string Medium;
-        private string photoURL;
+        //note: model member variables must be public to convert to JSON format. 
+        public int artworkID;
+        public string title;
+        public string instructor;
+        public string semester;
+        public string course;
+        public string medium;
+        public string photoURL;
 
         public Artwork(int ArtworkID,
             string Title,
@@ -23,28 +24,28 @@ namespace ARTchive.Models
             string Medium,
             string photoURL)
         {
-            this.ArtworkID = ArtworkID;
-            this.Title = Title;
-            this.Instructor = Instructor;
-            this.Semester = Semester;
-            this.Course = Course;
-            this.Medium = Medium;
+            this.artworkID = ArtworkID;
+            this.title = Title;
+            this.instructor = Instructor;
+            this.semester = Semester;
+            this.course = Course;
+            this.medium = Medium;
             this.photoURL = photoURL;
         }
 
-        public int getArtworkID() { return ArtworkID; }
-        public string getTitle() { return Title; }
-        public string getInstructor() { return Instructor; }
-        public string getCourse() { return Course; }
-        public string getSemester() { return Semester; }
-        public string getMedium() { return Medium; }
+        public int getArtworkID() { return artworkID; }
+        public string getTitle() { return title; }
+        public string getInstructor() { return instructor; }
+        public string getCourse() { return course; }
+        public string getSemester() { return semester; }
+        public string getMedium() { return medium; }
         public string getPhotoURL() { return photoURL; }
         
         public string toString()
         {
-            return "ArtworkID: " + ArtworkID + " Title: " + Title
-                + " Instructor: " + Instructor + " Course: " + Course
-                + " Medium: " + Medium;
+            return "ArtworkID: " + artworkID + " Title: " + title
+                + " Instructor: " + instructor + " Course: " + course
+                + " Medium: " + medium;
         }
 
         //private int ArtworkID { get; set; }
